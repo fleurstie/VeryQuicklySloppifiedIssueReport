@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Report an issue</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:560px;margin:3rem auto;padding:0 1rem;color:#222}
+label{display:block;margin-top:1rem;font-weight:600}
+input,select,textarea{width:100%;padding:.55rem;margin-top:.3rem;box-sizing:border-box;font:inherit;border:1px solid #bbb;border-radius:6px}
+textarea{min-height:140px}
+button{margin-top:1.2rem;padding:.65rem 1.2rem;font:inherit;border:0;border-radius:6px;background:#2563eb;color:#fff;cursor:pointer}
+small{color:#666;display:block;margin-top:1rem}
+</style>
+</head>
+<body>
+<h1>Report an issue</h1>
+<form id="f">
+<label>Short summary<input id="t" required maxlength="120"></label>
+<label>Category
+<select id="c">
+<option>Bug</option>
+<option>Crash</option>
+<option>Performance</option>
+<option>Login / account</option>
+<option>Other</option>
+</select>
+</label>
+<label>Details<textarea id="d" required></textarea></label>
+<button type="submit">Submit report</button>
+<small>A GitHub account is required. The report opens as a prefilled issue and is sent when Submit new issue is pressed.</small>
+</form>
+<script>
+const REPO = "fleurstie/VeryQuicklySloppifiedIssueReport";
+document.getElementById("f").addEventListener("submit", e => {
+  e.preventDefault();
+  const title = document.getElementById("t").value.trim();
+  const cat = document.getElementById("c").value;
+  const body = "**Category:** " + cat + "\n\n" + document.getElementById("d").value.trim();
+  const url = "https://github.com/" + REPO + "/issues/new?labels=report&title=" +
+    encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
+  window.open(url, "_blank");
+});
+</script>
+</body>
+</html>
